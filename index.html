@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Shoujiki - Leave Anonymouse Messages
+        </title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css"/>
+        <!--
+        <link rel="stylesheet" type="text/css" media="screen" href="skeleton.css"/>
+        <link rel="stylesheet" type="text/css" media="screen" href="normalize.css"/>
+        -->
+        <link rel="stylesheet" type="text/css" media="screen" href="bulma.css"/>
+    </head>
+
+    <body>
+        <div class="container">
+        
+            <h1 class="title is-1 has-text-centered">Leave Anonymous Messages for</h1>
+            <h1 class="subtitle is-1 has-text-centered">Hardik Tyagi</h1>
+
+            <div class="box" id="main-content">
+                <form id="form">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <div class="control">
+                            <input name="name" class="input" type="text" placeholder="Name" value="Anonymous">
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="msg">Message</label>
+                        <div class="control">
+                            <textarea class="input is-primary" type="text" id="msg" name="msg"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">
+                                <span class="icon is-small">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                                <span>
+                                    Send
+                                </span>
+                            </button>
+                        </div>
+                        <div class="control">
+                            <button type="reset" class="button is-light">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="loader">
+                Loading...
+            </div>
+        </div>
+
+        <script src="main.js"></script>
+    </body>
+</html>

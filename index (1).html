@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Shoujiki - Leave Anonymouse Messages
+        </title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/siimple@3.3.0/dist/siimple.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="main.js"></script>
+    </head>
+
+    <body> 
+        <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">  Hardik Tyagi</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li> <a href="#">Github</a> </li>
+            </ul>
+        </div>
+        </nav>
+
+        <div class="container">
+            <h1 class="title center-align">Leave Anonymous Messages for</h1>
+            <h1 class="title center-align">Hardik Tyagi</h1>
+
+            <div class="divider"></div>
+            
+            <div class="section">
+                <form class="col s12" id="myform">
+                    <div class="input-field col s6">
+                        <label for="name">Name</label>
+                        <input value="Anonymous" type="text" id="msg" name="msg" class="col s6">
+                    </div>
+                    <div class="input-field col s6">
+                        <textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
+                        <label for="textarea2">Message</label>
+                    </div>
+                    <button class="btn waves-effect waves-light" type="submit" name="submit">Submit Message</button>
+                </form>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="myloader">
+                Loading
+            </div>
+        </div>
+
+    </body>
+</html>
