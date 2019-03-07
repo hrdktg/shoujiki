@@ -1,7 +1,2 @@
 {
-  "name": "shoujiki",
-  "builds": [
-    {"src": "index.html", "use": "@now/static"},
-    {"src": "server/index.js", "use": "@now/node"}
-  ]
 }
