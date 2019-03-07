@@ -1,11 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const monk = require('monk');
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 
 //database
-const db = monk('localhost/sara')
+const db = monk(process.env.MONGO_URI || 'localhost/sara')
 
 //collection - touch
 const mews = db.get('mews');
@@ -26,10 +27,23 @@ app.get('/', (req, res)=> {
     });
 });
 
+app.get('/getMsg', (req, res)=> {
+    mews
+    .find()
+    .then(mews=>{
+        res.json(mews);
+    });
+});
+
 function isValidMsg(msg) {
     return msg.name && msg.name.toString().trim()!='' &&
            msg.content && msg.content.toString().trim()!=''
 }
+
+app.use(rateLimit({
+    windowMs: 10*1000,
+    max: 3
+}));
 
 app.post('/send', (req, res)=> {
     console.log(req.body);
@@ -48,6 +62,8 @@ app.post('/send', (req, res)=> {
             .then(createdData => {
                 res.json(createdData);
             });
+        
+        console.log("Inserting data:", mdata);
     }
     else {
         res.status(422);
