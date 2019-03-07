@@ -38,7 +38,6 @@ form.addEventListener('submit', (event)=> {
     }).then(res=>res.json())
       .then(createdData => {
           console.log(createdData, "recd on client");
-          form.reset();
 
           ctMsg++;
           if(ctMsg>=3) {
@@ -48,6 +47,9 @@ form.addEventListener('submit', (event)=> {
 
           console.log(ctMsg, " current number of msg");
           listAllMsg();
+      })
+      .catch(err=>{
+          console.log(err, "wtfff");
       });
 });
 
@@ -68,6 +70,7 @@ function listAllMsg() {
     .then(response => response.json())
     .then(mews => {
         console.log(mews);
+        form.reset();
         mews.forEach(mew => {
             const div = document.createElement('div');
             div.classList.add("tile", "is-child", "notification", "is-primary", "box");

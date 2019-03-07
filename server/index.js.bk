@@ -5,12 +5,43 @@ const rateLimit = require("express-rate-limit");
 
 const app = express();
 
-var url = process.env.MONGO_URI;
-var MongoClient = require('mongodb').MongoClient;
+//database
+const muri = 'localhost';
+const db = monk(muri);
 
-function listAllMsg() {
-    
-}
+//collection - touch
+const mews = db.get('mews');
+//console.log(mews);
+
+const MongoClient = require('mongodb').MongoClient;
+//const uri = "mongodb+srv://doomer:thismango@sarah-ghbas.mongodb.net/sara";
+const uri = muri;
+const client = new MongoClient(uri, { useNewUrlParser: true });
+
+client.connect(function(err, db) {
+  //const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+//   var cur = db.collection('mews').find();
+
+//   cur.each(function(err, doc) {
+//       console.log(doc);
+//   });
+  console.log("Connected to sara");
+  var dbo = db.db('sara');
+
+  dbo.collection('mews')
+  .find()
+  .toArray(function(err, item) {
+      if(err) { console.error('Error Connecting', err); }
+      else {
+        console.log(item);
+        dbo.close();
+      }
+  });
+  
+  console.log(cur);
+  client.close();
+});
 //Adds cors as middleware
 //All requests automatically pass through this middleware
 //Automatically adds proper headers
@@ -28,17 +59,11 @@ app.get('/', (req, res)=> {
 });
 
 app.get('/getMsg', (req, res)=> {
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("sara");
-        //var query = { address: "Park Lane 38" };
-        const cond = {created: -1};
-        dbo.collection("mews").find().sort(cond).toArray(function(err, result) {
-            if (err) throw err;
-            res.json(result);
-            db.close();
-        });
-    }); 
+    mews
+    .find()
+    .then(mews=>{
+        res.json(mews);
+    });
 });
 
 function isValidMsg(msg) {
@@ -63,31 +88,18 @@ app.post('/send', (req, res)=> {
             created: new Date()
         };
 
-        insertData(mdata);
-        res.json(mdata);
+        mews
+            .insert(mdata)
+            .then(createdData => {
+                res.json(createdData);
+            });
+        
         console.log("Inserting data:", mdata);
     }
     else {
         res.status(422);
         res.json({
-            message: 'Message not Valid!!'
+            message: 'Message not Valid!!1'
         });
     }
 })
-
-function insertData(mdata) {
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("sara");
-
-        dbo.collection("mews")
-        .insert(mdata)
-        .then((idata)=> {
-            console.log("Inserted ", idata);
-        })
-        .catch((err)=> {
-            console.log(err, " is caught")
-        })
-        .then(()=> db.close());
-    }); 
-}
